@@ -22,8 +22,9 @@ export default function About() {
   const features = [
     {
       icon: MapPin,
-      title: "Kết nối Metro",
-      description: "Tích hợp hoàn hảo với hệ thống tàu điện ngầm thành phố",
+      title: "Tiện lợi cạnh trạm Metro",
+      description:
+        "Dịch vụ của chúng tôi giúp bạn di chuyển nhanh chóng và dễ dàng hơn sau khi rời ga tàu điện ngầm.",
     },
     {
       icon: Smartphone,
@@ -150,7 +151,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* How It Works */}
       <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Cách sử dụng</h2>
@@ -170,7 +170,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* Pricing Section */}
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">
@@ -181,7 +180,7 @@ export default function About() {
               <Card
                 key={index}
                 className={`bg-gradient-card shadow-card border-0 ${
-                  index === 1 ? "ring-2 ring-primary scale-105" : ""
+                  index === 1 ? "ring-2 ring-[hsl(210,100%,50%)] scale-105" : ""
                 }`}
               >
                 <CardHeader className="text-center">
@@ -213,11 +212,10 @@ export default function About() {
         </div>
       </section>
 
-      {/* Stats Section */}
       <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">
-            Số liệu ấn tượng
+            Những con số biết nói
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="text-center">
@@ -248,11 +246,10 @@ export default function About() {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="py-16 bg-gradient-hero text-white  bg-[linear-gradient(135deg,_#2563eb,_#60a5fa)]">
         <div className="container mx-auto px-4 text-center ">
           <h2 className="text-3xl font-bold mb-6">
-            Sẵn sàng bắt đầu hành trình?
+            Sẵn sàng trải nghiệm MetroBike?
           </h2>
           <p className="text-xl mb-8 opacity-90">
             Tham gia cộng đồng MetroBike và trải nghiệm cách di chuyển thông
@@ -266,9 +263,8 @@ export default function About() {
             Bắt đầu ngay
           </Button>
         </div>
-      </section>
+      </section>  
 
-      {/* Footer */}
       <footer className="border-t bg-gradient-card py-8">
         <div className="container mx-auto px-4 text-center">
           <MetroLogo />

@@ -51,8 +51,20 @@ const Header = () => {
             </Button>
           </div>
           <div>
-            <Button variant="ghost" className="text_header">
-              Đăng nhập / Đăng ký
+            <Button
+              variant="ghost"
+              className="text_header"
+              onClick={() => router.push("/auth/login")}
+            >
+              Đăng nhập
+            </Button>
+            |
+            <Button
+              variant="ghost"
+              className="text_header"
+              onClick={() => router.push("/auth/register")}
+            >
+              Đăng ký
             </Button>
           </div>
         </div>
