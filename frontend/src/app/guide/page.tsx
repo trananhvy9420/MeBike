@@ -1,3 +1,4 @@
+import Stepper from "@/components/ui/Stepper";
 import React from "react";
 
 const page = () => {
@@ -34,11 +35,8 @@ const page = () => {
           bắt đầu sử dụng dịch vụ
         </p>
       </div>
-      <div className="container px-4 mx-auto my-12 flex justify-center">
-        <img
-          src="https://tngo.vn/image/use-2.png"
-          alt="Hướng dẫn sử dụng MeBike"
-        />
+      <div className="container px-4 mx-auto my-12">
+        <Stepper />
       </div>
     </div>
   );

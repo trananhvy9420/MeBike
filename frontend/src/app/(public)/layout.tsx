@@ -104,7 +104,7 @@ export default function About() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              className="bg-[hsl(38_95%_49%)] text-black hover:bg-metro-yellow-light"
+              className="bg-[hsl(38_95%_49%)] text-black hover:bg-metro-yellow-light cursor-pointer"
               onClick={() => router.push("/customer")}
             >
               Thuê xe ngay
@@ -112,9 +112,9 @@ export default function About() {
             <Button
               size="lg"
               variant="outline"
-              className="border-white text-white hover:bg-white hover:text-foreground"
+              className="border-white text-white hover:bg-white hover:text-foreground cursor-pointer"
             >
-              Xem video giới thiệu
+              Xem thêm thông tin
             </Button>
           </div>
         </div>
@@ -200,7 +200,7 @@ export default function About() {
                     </div>
                   ))}
                   <Button
-                    className="w-full mt-4 bg-gradient-metro bg-[linear-gradient(135deg,_#2563eb,_#60a5fa)]"
+                    className="w-full mt-4 bg-gradient-metro bg-[linear-gradient(135deg,_#2563eb,_#60a5fa)] cursor-pointer"
                     onClick={() => router.push("/customer")}
                   >
                     Chọn gói này
@@ -257,13 +257,13 @@ export default function About() {
           </p>
           <Button
             size="lg"
-            className="bg-[hsl(38_95%_49%)] text-black hover:bg-metro-yellow-light"
+            className="bg-[hsl(38_95%_49%)] text-black hover:bg-metro-yellow-light cursor-pointer"
             onClick={() => router.push("/customer")}
           >
             Bắt đầu ngay
           </Button>
         </div>
-      </section>  
+      </section>
 
       <footer className="border-t bg-gradient-card py-8">
         <div className="container mx-auto px-4 text-center">

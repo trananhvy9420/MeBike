@@ -59,7 +59,8 @@ const Header = () => {
         <div>
           <Button
             onClick={() => router.push("/")}
-            className="bg-[linear-gradient(135deg,_#2563eb,_#60a5fa)] text-white hover:scale-105 hover:shadow-[var(--shadow-metro)]"
+            className="bg-[linear-gradient(135deg,_#2563eb,_#60a5fa)] text-white hover:scale-105 hover:shadow-[var(--shadow-metro)]
+            cursor-pointer"
           >
             Bắt đầu sử dụng
           </Button>
