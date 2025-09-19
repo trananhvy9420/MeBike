@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Card,
   CardContent,
@@ -11,30 +12,34 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Bike, Mail, Lock, Eye, EyeOff, User, Phone } from "lucide-react";
-import { Logo as MetroLogo } from "@/components/logo";
-const Register = () => {
-  const router = useRouter();
+import { Bike, Mail, Lock, Eye, EyeOff, Phone, User } from "lucide-react"; // Thêm icon User
+
+const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
-    phone: "",
+    phoneNumber: "",
     password: "",
     confirmPassword: "",
     agreeTerms: false,
   });
 
-  const handleInputChange = (
-    field: keyof typeof formData,
-    value: string | boolean
-  ) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [field]: value,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleCheckedChange = (checked: boolean) => {
+    setFormData((prev) => ({
+      ...prev,
+      agreeTerms: checked,
     }));
   };
 
@@ -53,44 +58,53 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-metro-primary via-metro-secondary to-metro-accent flex items-center justify-center p-4">
+    <div
+      className="min-h-screen bg-gradient-to-br from-metro-primary via-metro-secondary to-metro-accent flex items-center justify-center p-4 
+    bg-[linear-gradient(135deg,hsl(214_100%_40%)_0%,hsl(215_16%_47%)_100%)] 
+    overflow-hidden"
+    >
       <div className="w-full max-w-md">
-        {/* Logo and Title */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center mb-4">
-            <MetroLogo />
+        <div className="text-center animate-fade-in mb-4">
+          <div className="flex items-center justify-center">
+            <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 shadow-floating">
+              <Bike className="h-12 w-12 text-white" />
+            </div>
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">MetroBike</h1>
-          <p className="text-white/80">Tạo tài khoản mới</p>
+          <h1 className="text-4xl font-bold text-white mt-3 tracking-tight">
+            MetroBike
+          </h1>
         </div>
-
-        <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
-          <CardHeader className="space-y-1 text-center">
-            <CardTitle className="text-2xl font-bold text-metro-dark">
+        {/* FIX: Thêm max-h, flex, flex-col để giới hạn chiều cao và quản lý layout */}
+        <Card className="shadow-floating border-0 bg-white/95 backdrop-blur-xl relative z-10 overflow-hidden animate-scale-in max-h-[90vh] flex flex-col">
+          <div className="h-1 bg-gradient-metro rounded-t-lg"></div>
+          <CardHeader className="space-y-2 text-center ">
+            <CardTitle className="text-3xl font-bold text-foreground tracking-tight">
               Đăng ký
             </CardTitle>
             <CardDescription className="text-muted-foreground">
-              Điền thông tin để tạo tài khoản MetroBike
+              Nhập thông tin để tạo tài khoản mới
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          {/* FIX: Thêm overflow-y-auto để nội dung có thể cuộn */}
+          <CardContent className="space-y-4 overflow-y-auto">
+            {/* FIX: Sửa onSubmit thành handleRegister */}
             <form onSubmit={handleRegister} className="space-y-4">
-              {/* Full Name */}
+              {/* Họ và tên */}
               <div className="space-y-2">
                 <Label htmlFor="fullName" className="text-sm font-medium">
                   Họ và tên
                 </Label>
                 <div className="relative">
-                  <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  {/* FIX: Đổi icon thành User */}
+                  <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="fullName"
+                    name="fullName" // FIX: Thêm name để handleInputChange hoạt động
                     type="text"
                     placeholder="Nguyễn Văn A"
-                    value={formData.fullName}
-                    onChange={(e) =>
-                      handleInputChange("fullName", e.target.value)
-                    }
-                    className="pl-10 h-12"
+                    value={formData.fullName} // FIX: Lấy value từ formData
+                    onChange={handleInputChange} // FIX: Dùng handleInputChange
+                    className="pl-10 h-12 w-full rounded-lg border border-gray-300 bg-white shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200"
                     required
                   />
                 </div>
@@ -102,72 +116,52 @@ const Register = () => {
                   Email
                 </Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="email"
+                    name="email"
                     type="email"
                     placeholder="example@email.com"
                     value={formData.email}
-                    onChange={(e) => handleInputChange("email", e.target.value)}
-                    className="pl-10 h-12"
+                    onChange={handleInputChange}
+                    className="pl-10 h-12 w-full rounded-lg border border-gray-300 bg-white shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200"
                     required
                   />
                 </div>
               </div>
 
-              {/* Phone */}
-              <div className="space-y-2">
-                <Label htmlFor="phone" className="text-sm font-medium">
-                  Số điện thoại
-                </Label>
-                <div className="relative">
-                  <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="phone"
-                    type="tel"
-                    placeholder="0123456789"
-                    value={formData.phone}
-                    onChange={(e) => handleInputChange("phone", e.target.value)}
-                    className="pl-10 h-12"
-                    required
-                  />
-                </div>
-              </div>
-
-              {/* Password */}
+              {/* Mật khẩu */}
               <div className="space-y-2">
                 <Label htmlFor="password" className="text-sm font-medium">
                   Mật khẩu
                 </Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="password"
+                    name="password"
                     type={showPassword ? "text" : "password"}
-                    placeholder="Tối thiểu 8 ký tự"
+                    placeholder="Tối thiếu 8 ký tự"
                     value={formData.password}
-                    onChange={(e) =>
-                      handleInputChange("password", e.target.value)
-                    }
-                    className="pl-10 pr-10 h-12"
-                    minLength={8}
+                    onChange={handleInputChange}
+                    className="pl-10 h-12 w-full rounded-lg border border-gray-300 bg-white shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-3 h-4 w-4 text-muted-foreground hover:text-foreground transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {showPassword ? (
-                      <EyeOff className="h-4 w-4" />
+                      <EyeOff className="h-5 w-4" />
                     ) : (
-                      <Eye className="h-4 w-4" />
+                      <Eye className="h-5 w-4" />
                     )}
                   </button>
                 </div>
               </div>
 
-              {/* Confirm Password */}
+              {/* Xác nhận mật khẩu */}
               <div className="space-y-2">
                 <Label
                   htmlFor="confirmPassword"
@@ -176,79 +170,84 @@ const Register = () => {
                   Xác nhận mật khẩu
                 </Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="confirmPassword"
+                    name="confirmPassword"
                     type={showConfirmPassword ? "text" : "password"}
                     placeholder="Nhập lại mật khẩu"
                     value={formData.confirmPassword}
-                    onChange={(e) =>
-                      handleInputChange("confirmPassword", e.target.value)
-                    }
-                    className="pl-10 pr-10 h-12"
+                    onChange={handleInputChange}
+                    className="pl-10 h-12 w-full rounded-lg border border-gray-300 bg-white shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-3 h-4 w-4 text-muted-foreground hover:text-foreground transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {showConfirmPassword ? (
-                      <EyeOff className="h-4 w-4" />
+                      <EyeOff className="h-5 w-4" />
                     ) : (
-                      <Eye className="h-4 w-4" />
+                      <Eye className="h-5 w-4" />
                     )}
                   </button>
                 </div>
               </div>
 
-              {/* Terms and Conditions */}
-              <div className="flex items-center space-x-2 pt-2">
+              {/* Điều khoản */}
+              <div className="flex items-start space-x-3 pt-2">
                 <Checkbox
                   id="terms"
                   checked={formData.agreeTerms}
                   onCheckedChange={(checked) =>
-                    handleInputChange("agreeTerms", checked as boolean)
+                    handleCheckedChange(checked as boolean)
                   }
+                  className="mt-1"
                 />
                 <label
                   htmlFor="terms"
-                  className="text-sm text-muted-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  className="text-sm text-muted-foreground leading-relaxed cursor-pointer peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
-                  Tôi đồng ý với {""}
-                  <label
-                    onClick={() => router.push("/")}
-                    className="text-metro-primary hover:text-metro-secondary transition-colors"
+                  Tôi đồng ý với{" "}
+                  <a
+                    href="/terms"
+                    target="_blank"
+                    className="font-medium text-primary hover:underline"
                   >
-                    điều khoản sử dụng {""}
-                  </label>
-                  <label
-                    className="text-metro-primary hover:text-metro-secondary transition-colors"
-                    onClick={() => router.push("/privacy")}
+                    điều khoản sử dụng
+                  </a>{" "}
+                  và{" "}
+                  <a
+                    href="/privacy"
+                    target="_blank"
+                    className="font-medium text-primary hover:underline"
                   >
                     chính sách bảo mật
-                  </label>
+                  </a>
                 </label>
               </div>
 
-              <Button
-                type="submit"
-                className="w-full h-12 bg-metro-primary hover:bg-metro-secondary transition-all duration-300"
-                disabled={!formData.agreeTerms}
-              >
-                <Bike className="mr-2 h-5 w-5" />
-                Tạo tài khoản
-              </Button>
+              {/* Nút Đăng ký */}
+              <div>
+                <Button
+                  type="submit"
+                  className="w-full h-12 bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 text-primary-foreground font-semibold
+                  bg-[hsl(214,100%,40%)] p-3 shadow-[var(--shadow-metro)] text-white"
+                  disabled={!formData.agreeTerms}
+                >
+                  <Bike className="mr-2 h-5 w-5" />
+                  Đăng ký
+                </Button>
+              </div>
             </form>
 
-            <Separator className="my-6" />
-
-            {/* Login Link */}
             <div className="text-center">
               <p className="text-sm text-muted-foreground">
                 Đã có tài khoản?{" "}
                 <Button
-                  className="text-metro-primary hover:text-metro-secondary font-medium transition-colors"
+                  variant="link"
+                  className="text-sm text-primary p-0 h-auto"
                   onClick={() => router.push("/auth/login")}
                 >
                   Đăng nhập ngay
@@ -256,10 +255,10 @@ const Register = () => {
               </p>
             </div>
 
-            {/* Back to Home */}
-            <div className="text-center pt-4">
+            <div className="text-center">
               <Button
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                variant="link"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors p-0 h-auto"
                 onClick={() => router.push("/")}
               >
                 ← Về trang chủ
@@ -272,4 +271,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterPage;

@@ -11,49 +11,37 @@ const Header = () => {
     <header className="p-4">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => router.back()}
-          ></Button>
           <MetroLogo />
         </div>
         <div className="flex items-center gap-4">
           <div>
-            <Button variant="ghost" className="text_header">
-              Giới thiệu
-            </Button>
-          </div>
-
-          <div>
-            <Button variant="ghost" className="text_header">
+            <Button
+              variant="ghost"
+              className="text_header cursor-pointer"
+              onClick={() => router.push("/guide")}
+            >
               Hướng dẫn sử dụng
             </Button>
           </div>
           <div>
-            <Button variant="ghost" className="text_header">
+            <Button variant="ghost" className="text_header cursor-pointer">
               Danh sách trạm
             </Button>
           </div>
           <div>
-            <Button variant="ghost" className="text_header">
+            <Button variant="ghost" className="text_header cursor-pointer">
               Bảng giá
             </Button>
           </div>
           <div>
-            <Button variant="ghost" className="text_header">
+            <Button variant="ghost" className="text_header cursor-pointer">
               Dịch vụ
-            </Button>
-          </div>
-          <div>
-            <Button variant="ghost" className="text_header">
-              Liên hệ
             </Button>
           </div>
           <div>
             <Button
               variant="ghost"
-              className="text_header"
+              className="text_header cursor-pointer"
               onClick={() => router.push("/auth/login")}
             >
               Đăng nhập
@@ -61,7 +49,7 @@ const Header = () => {
             |
             <Button
               variant="ghost"
-              className="text_header"
+              className="text_header cursor-pointer"
               onClick={() => router.push("/auth/register")}
             >
               Đăng ký
