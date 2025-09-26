@@ -4,7 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "../button";
 import { Logo as MetroLogo } from "@/components/logo";
 import { useRouter } from "next/navigation";
-import "./Header.css";
+
 const Header = () => {
   const router = useRouter();
   return (
@@ -24,12 +24,20 @@ const Header = () => {
             </Button>
           </div>
           <div>
-            <Button variant="ghost" className="text_header cursor-pointer">
+            <Button
+              variant="ghost"
+              className="text_header cursor-pointer"
+              onClick={() => router.push("/station")}
+            >
               Danh sách trạm
             </Button>
           </div>
           <div>
-            <Button variant="ghost" className="text_header cursor-pointer">
+            <Button
+              variant="ghost"
+              className="text_header cursor-pointer"
+              onClick={() => router.push("/pricing")}
+            >
               Bảng giá
             </Button>
           </div>
